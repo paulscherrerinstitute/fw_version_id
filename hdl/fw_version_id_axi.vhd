@@ -45,7 +45,7 @@ entity fw_version_id_axi is
     -- GPIO
     -----------------------------------------------------------------------------
     gpio_i    : in std_logic_vector(15 downto 0);
-    led_o     : out std_logic_vector(7 downto 0);
+    --led_o     : out std_logic_vector(7 downto 0);
 
     -----------------------------------------------------------------------------
     -- Axi Slave Bus Interface
@@ -225,22 +225,22 @@ begin
     --------------------------------------------------------------------------
     -- AXI Register Map
     --------------------------------------------------------------------------
-   gen_reg_git: for i in 0 to 7 generate 
-    reg_rdata(i) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
-   end generate;
+    gen_reg_facility: for i in 0 to 3 generate 
+    reg_rdata(i+0) <= facility(i*32 +32-1 downto i*32);
+    end generate;
 
-   gen_reg_facility: for i in 0 to 3 generate 
-    reg_rdata(i+8) <= facility(i*32 +32-1 downto i*32);
-   end generate;
+    gen_reg_project: for i in 0 to 3 generate 
+    reg_rdata(i+4) <= project(i*32 +32-1 downto i*32);
+    end generate;
 
-   gen_reg_project: for i in 0 to 3 generate 
-    reg_rdata(i+12) <= project(i*32 +32-1 downto i*32);
-   end generate;
+    gen_reg_git: for i in 0 to 7 generate 
+    reg_rdata(i+8) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
+    end generate;
 
-   reg_rdata(16) <= param_fw_build_date_i;
-   reg_rdata(17) <= param_fw_build_time_i;
+    reg_rdata(16) <= param_fw_build_date_i;
+    reg_rdata(17) <= param_fw_build_time_i;
 
-   reg_rdata(18) <= x"0000" & gpio_i;
+    reg_rdata(18) <= x"0000" & gpio_i;
 
    ---------------------------------------------------------------------------
    -- BRAM 

@@ -62,20 +62,6 @@ gui_add_parameter
 gui_create_parameter "C_FREQ_HZ" "Clock frquency in Hz"
 gui_add_parameter
 
-#gui_create_parameter "C_FREQ_BLINKING_LED_HZ" "Blinking led frequency in Hz)"
-#gui_add_parameter
-
-#gui_create_user_parameter "IMPL_BLINK" boolean true "Implement Blinking LED"
-#gui_add_parameter
-
-###############################################################
-# Optional Ports
-###############################################################
-#add_port_enablement_condition "o_blink" "\$IMPL_BLINK"
-#add_port_enablement_condition "o_led" "\$IMPL_LED"
-#add_port_enablement_condition "i_sw" "\$IMPL_SWITCH"
-#None
-
 ###############################################################
 # Package Core
 ###############################################################

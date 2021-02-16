@@ -31,9 +31,9 @@ IP for storing build date/time and version based on git repository.
 
 | Offset     | Register       | R/W | Length   | Description                                |
 | ------     | --------       | --- | ---      | -----------                                |
-| 0x000      | FW Version     | R   | 32 chars | FW Version in Git Describe format          |
-| 0x020      | Facility       | R   | 16 chars | Facility e.g. SwissFEL                     |
-| 0x030      | Project        | R   | 16 chars | Project e.g. DBPM3-AthosBPM                |
+| 0x000      | Facility       | R   | 16 chars | Facility e.g. SwissFEL                     |
+| 0x010      | Project        | R   | 16 chars | Project e.g. DBPM3-AthosBPM                |
+| 0x020      | FW Version     | R   | 32 chars | FW Version in Git Describe format          |
 | 0x040      | FW Buid Date   | R   | [31:0]   | Format: YYYY-MM-DD, encoded as: 0xYYYYMMDD |
 | 0x044      | FW Buid Time   | R   | [15:0]   | Format: hh:mm, encoded as: 0x0000hhmm      |
 | 0x048      | GPIO           | R   | [15:0]   | GPIO, eg. Hardware Rev pins, DIP switch    |
