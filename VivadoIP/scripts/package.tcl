@@ -40,10 +40,10 @@ add_lib_relative \
 ###############################################################
 # Driver Files
 ############################################################### 
-#add_drivers_relative ../drivers/fw_version_id { \
-#  src/fw_version_id.c \
-#  src/fw_version_id.h \
-#}
+add_drivers_relative ../drivers/fw_version_id { \
+  src/fw_version_id.c \
+  src/fw_version_id.h \
+}
 
 ###############################################################
 # GUI Parameters
