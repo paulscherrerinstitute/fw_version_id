@@ -5,18 +5,19 @@
 
 #include "fw_version_id.h"
 
+// -------------------------------------------------
 uint32_t get_offset(versionid_t sw_id) {
   switch (sw_id) {
     case FW:
       return 0x040;
       break;
-    case SW1:
+    case SW0:
       return 0x0A0;
       break;
-    case SW2:
+    case SW1:
       return 0x0D0;
       break;
-    case SW3:
+    case SW2:
       return 0x100;
       break;
     default:
@@ -24,6 +25,7 @@ uint32_t get_offset(versionid_t sw_id) {
   }
 }
 
+// -------------------------------------------------
 void set_version_git(const uint32_t base_addr, versionid_t id, char * version) {
   uint32_t offset = get_offset(id);
 
@@ -38,7 +40,7 @@ void set_version_git(const uint32_t base_addr, versionid_t id, char * version) {
   }
 }
 
-
+// -------------------------------------------------
 void set_version_build(const uint32_t base_addr, versionid_t id, const uint32_t build_date, const uint32_t build_time) {
   uint32_t offset = get_offset(id);
 
@@ -48,6 +50,7 @@ void set_version_build(const uint32_t base_addr, versionid_t id, const uint32_t 
   }
 }
 
+// -------------------------------------------------
 void get_version_build(const uint32_t base_addr, versionid_t id, char* build_datetime, const size_t size) {
   uint32_t offset = get_offset(id);
   uint8_t i=0, c=0;
