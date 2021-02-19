@@ -14,6 +14,7 @@ extern "C" {
 // Includes
 //*******************************************************************************
 #include <stdint.h>
+#include <xil_io.h>
 
 /*****************************************************************************
  * Build Date/Time 
@@ -56,10 +57,14 @@ extern "C" {
 #define TIME_HOUR   (__TIME__[0] == ' ' ? (__TIME__[1] - '0') : (((__TIME__[0] - '0') * 10) + (__TIME__[1] - '0')))
 #define TIME_MINUTE (__TIME__[3] == ' ' ? (__TIME__[4] - '0') : (((__TIME__[3] - '0') * 10) + (__TIME__[4] - '0')))
 
-// Macros to be used in application:
+//*******************************************************************************
+// User Macros
+//*******************************************************************************
+// Version Macros to be used in application:
 #define SW_BUILD_DATE   ((DATE_YEAR<<16) + (DATE_MONTH<<8) + DATE_DAY)
 #define SW_BUILD_TIME    ((TIME_HOUR<<8) + TIME_MINUTE)
 
+#define VERSION_STRING_SIZE 32
 
 //*******************************************************************************
 // Types
@@ -69,13 +74,14 @@ typedef enum {
   SW1 = 1,
   SW2 = 2,
   SW3 = 3,
-} id_t;
+} versionid_t;
 
 //*******************************************************************************
 // Functions
 //*******************************************************************************
-void set_version_git(const uint32_t base_addr, id_t sw_id, char* version);
-void set_version_build(const uint32_t base_addr, id_t sw_id , uint32_t build_date, uint32_t build_time);
+void set_version_git(const uint32_t base_addr, versionid_t sw_id, char * version);
+void set_version_build(const uint32_t base_addr, versionid_t sw_id, const uint32_t build_date, const uint32_t build_time);
+void get_version_build(const uint32_t base_addr, versionid_t sw_id, char* build_datetime, const size_t size);
 
 
 #ifdef __cplusplus
