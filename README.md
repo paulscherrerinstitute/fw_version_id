@@ -38,17 +38,17 @@ IP for storing build date/time and version based on git repository.
 | 0x044      | FW Buid Time   | R   | [15:0]   | Format: hh:mm, encoded as: 0x0000hhmm      |
 | 0x048      | GPIO           | R   | [15:0]   | GPIO, eg. Hardware Rev pins, DIP switch    |
 | 0x04C..7C  |                |     |          | reserved                                   |
-| 0x080      | SW1 Version    | R/W | 32 chars | Git Describe based version                 |
-| 0x0A0      | SW1 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
-| 0x0A4      | SW1 Build Time | R/W | [15:0]   | Format: hh:mm                              |
+| 0x080      | SW0 Version    | R/W | 32 chars | Git Describe based version                 |
+| 0x0A0      | SW0 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
+| 0x0A4      | SW0 Build Time | R/W | [15:0]   | Format: hh:mm                              |
 | 0x0A8..AC  |                |     |          | reserved                                   |
-| 0x0B0      | SW2 Version    | R/W | 32 chars | see SW1                                    |
-| 0x0D0      | SW2 Build Date | R/W | [31:0]   | see SW1                                    |
-| 0x0D4      | SW2 Build Time | R/W | [15:0]   | see SW1                                    |
+| 0x0B0      | SW1 Version    | R/W | 32 chars | see SW0                                    |
+| 0x0D0      | SW1 Build Date | R/W | [31:0]   | see SW0                                    |
+| 0x0D4      | SW1 Build Time | R/W | [15:0]   | see SW0                                    |
 | 0x0D8..DC  |                |     |          | reserved                                   |
-| 0x0E0      | SW3 Version    | R/W | 32 chars | see SW1                                    |
-| 0x100      | SW3 Build Date | R/W | [31:0]   | see SW1                                    |
-| 0x104      | SW3 Build Time | R/W | [15:0]   | see SW1                                    |
+| 0x0E0      | SW2 Version    | R/W | 32 chars | see SW0                                    |
+| 0x100      | SW2 Build Date | R/W | [31:0]   | see SW0                                    |
+| 0x104      | SW2 Build Time | R/W | [15:0]   | see SW0                                    |
 | 0x108..10C |                |     |          | reserved                                   |
 
  
