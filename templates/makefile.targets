@@ -1,0 +1,5 @@
+src/main.o: FORCE
+
+.PHONY: FORCE
+	FORCE:
+
