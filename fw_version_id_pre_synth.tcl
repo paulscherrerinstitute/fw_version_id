@@ -29,15 +29,14 @@ proc set_top_generics {} {
 
     # Update the generics
     set datetime_arr [clock format [clock seconds] -format {%Y %y %m %d %H %M %S 00}]
-    set datecode [lindex $datetime_arr 0][lindex $datetime_arr 2][lindex $datetime_arr 3]
-    set timecode [lindex $datetime_arr 4][lindex $datetime_arr 5]
+    set datecode [format "%04X%02X%02X" [lindex $datetime_arr 0] [lindex $datetime_arr 2] [lindex $datetime_arr 3]]
+    set timecode [format "%02X%02X" [lindex $datetime_arr 4] [lindex $datetime_arr 5]]
 
     set current_generics ""
 
     set current_generics [get_property generic [current_fileset]]
     puts "current generics:  $current_generics"
 
-    #set_property generic "$initial_generics G_FW_BUILD_DATE=32'h$datecode G_FW_BUILD_TIME=32'h$timecode" [current_fileset]
     puts " version_id Date:  $datecode"
     puts " version_id Time:  $timecode"
 

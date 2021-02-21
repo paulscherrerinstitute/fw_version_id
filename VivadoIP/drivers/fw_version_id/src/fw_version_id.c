@@ -9,16 +9,16 @@
 uint32_t get_offset(versionid_t sw_id) {
   switch (sw_id) {
     case FW:
-      return 0x040;
+      return 0x020;
       break;
     case SW0:
-      return 0x0A0;
+      return 0x080;
       break;
     case SW1:
-      return 0x0D0;
+      return 0x0B0;
       break;
     case SW2:
-      return 0x100;
+      return 0x0E0;
       break;
     default:
       return 0;
@@ -45,8 +45,8 @@ void set_version_build(const uint32_t base_addr, versionid_t id, const uint32_t 
   uint32_t offset = get_offset(id);
 
   if (offset != 0) {
-    Xil_Out32(base_addr + offset + 0, build_date);
-    Xil_Out32(base_addr + offset + 4, build_time);
+    Xil_Out32(base_addr + offset + 0x20, build_date);
+    Xil_Out32(base_addr + offset + 0x24, build_time);
   }
 }
 
@@ -55,8 +55,8 @@ void get_version_build(const uint32_t base_addr, versionid_t id, char* build_dat
   uint32_t offset = get_offset(id);
   uint8_t i=0, c=0;
 
-  uint32_t build_date = Xil_In32(base_addr + offset + 0);
-  uint32_t build_time = Xil_In32(base_addr + offset + 4);
+  uint32_t build_date = Xil_In32(base_addr + offset + 0x20);
+  uint32_t build_time = Xil_In32(base_addr + offset + 0x24);
 
   // build date string: YYYY-MM-DD
   for (i=0;i<8;i++) {
@@ -90,6 +90,5 @@ void get_version_build(const uint32_t base_addr, versionid_t id, char* build_dat
   }
 
   build_datetime[c] = 0;
-
 }
 

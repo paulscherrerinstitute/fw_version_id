@@ -219,7 +219,12 @@ begin
       o_reg_rd                    => reg_rd,
       i_reg_rdata                 => reg_rdata,
       o_reg_wr                    => reg_wr,
-      o_reg_wdata                 => reg_wdata
+      o_reg_wdata                 => reg_wdata,
+
+      o_mem_addr                  => mem_addr,
+      o_mem_wr                    => mem_wr,
+      o_mem_wdata                 => mem_wdata,
+      i_mem_rdata                 => mem_rdata
    );
 
     --------------------------------------------------------------------------
