@@ -9,11 +9,8 @@ Jonas Purtschert [jonas.purtschert@psi.ch]
 ## License
 This library is published under [PSI HDL Library License](License.txt), which is [LGPL](LGPL2_1.txt) plus some additional exceptions to clarify the LGPL terms in the context of firmware development.
 
-## Detailed Documentation
-
 ## Changelog
 See [Changelog](Changelog.md)
-
 
 ## Dependencies
 
@@ -26,6 +23,29 @@ See [Changelog](Changelog.md)
 
 # Description
 IP for storing build date/time and version based on git repository.
+See following description of the Git Repo Version format: [HowTo: Git Repo Versioning](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/blob/master/HowTo.md#git-repository-versioning)
+
+## Usage
+
+* Add `fw_version_id` as a Git Submodule to your Project's library.
+
+### FPGA
+
+To automatically integrate the Build Date/Time and Git Repo Version, a tcl script must be added to the Build process before synthesis:
+
+* Add Pre-Synthesis tcl script in: *Vivado > Project Settings > Synthesis > tcl.pre*
+* Select following script from library: `/fw_version_id/fw_version_id_pre_synth.tcl`
+
+### Software
+
+<TBD>  
+* makefile.defs
+* makefile.targets
+* 
+
+
+
+
 
 ## AXI Address Map
 
