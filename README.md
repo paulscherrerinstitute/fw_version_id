@@ -22,9 +22,9 @@ See [Changelog](Changelog.md)
   * [psi\_common](https://github.com/paulscherrerinstitute/psi_common) (2.5.0 or higher)
 
 # Description
-IP for storing build date/time and version based on git repository.
-See following description of the Git Repo Version format: 
-* [HowTo: Git Repo Versioning](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/blob/master/HowTo.md#git-repository-versioning)
+* IP for storing build date/time and version based on git repository.
+* Constains scripts and workflow to automate FW/SW Versioning.
+* See following description of the Git Repo Version format: [HowTo: Git Repo Versioning](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/blob/master/HowTo.md#git-repository-versioning)
 
 ## AXI Address Map
 
@@ -78,14 +78,15 @@ To automatically integrate the Build Date/Time and Git Repo Version, a tcl scrip
 1. Copy Makefiles `/templates/makefile.defs/.targets` to SDK Project base.
 2. Add Defined Symbol to SDK Project: `VERSION_GIT_REPO=\"$(VERSION_GIT_REPO)\"`:  *Properties > C/C++ Build > Symbols*
 3. Adapt `makefile.targets`: Select object (e.g. main.o) which includes driver, to force compilation on a build run.
-4. Call driver functions to write Git Repo Version and Build Date/Time into `fw_version_id` IP. (example: [main.c](templates/main.c)
+4. Call driver functions to write Git Repo Version and Build Date/Time into `fw_version_id` IP. 
+   Example: [main.c](templates/main.c)
 
 **Explanation:**  
 * The Makefiles are automatically included in the SDK managed Makefile process. 
 * `Makefile.defs` defines Makro with Git Repo Version (Git Describe Call)
 * `Makefile.targets` is used to force a rebuild of an object on every build. Otherwise the Version/Build Date might not be updated on every compile.
 * Following Macros are available: `VERSION_GIT_REPO`, `SW_BUILD_DATE` and `SW_BUILD_TIME`.
-* Using Driver functions `set_version_git()` and `set_version_build()` to write Version Info into BRAM of `fw_version_id` IP in FPGA. See Example [main.c](templates/main.c).
+* Using Driver functions `set_version_git()` and `set_version_build()` to write Version Info into BRAM of `fw_version_id` IP in FPGA. Example [main.c](templates/main.c).
 
 ### Epics
 
