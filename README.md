@@ -23,7 +23,8 @@ See [Changelog](Changelog.md)
 
 # Description
 IP for storing build date/time and version based on git repository.
-See following description of the Git Repo Version format: [HowTo: Git Repo Versioning](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/blob/master/HowTo.md#git-repository-versioning)
+See following description of the Git Repo Version format: 
+* [HowTo: Git Repo Versioning](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/blob/master/HowTo.md#git-repository-versioning)
 
 ## AXI Address Map
 
