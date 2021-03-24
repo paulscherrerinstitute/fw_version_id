@@ -69,7 +69,7 @@ To automatically integrate the Build Date/Time and Git Repo Version, a tcl scrip
 1. Add Pre-Synthesis tcl script in: *Vivado > Project Settings > Synthesis > tcl.pre*
 2. Select following script from library: `/fw_version_id/fw_version_id_pre_synth.tcl`
 
-### Software
+## Software
 
 **Integration in SDK:**  
 
@@ -88,7 +88,7 @@ To automatically integrate the Build Date/Time and Git Repo Version, a tcl scrip
 * Following Macros are available: `VERSION_GIT_REPO`, `SW_BUILD_DATE` and `SW_BUILD_TIME`.
 * Using Driver functions `set_version_git()` and `set_version_build()` to write Version Info into BRAM of `fw_version_id` IP in FPGA. Example [main.c](templates/main.c).
 
-### Epics
+## Epics
 
 * Example template: [version.template](templates/version.template)
 
