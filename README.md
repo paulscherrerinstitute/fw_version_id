@@ -41,13 +41,13 @@ See [Changelog](Changelog.md)
 | 0x0A0      | SW0 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
 | 0x0A4      | SW0 Build Time | R/W | [15:0]   | Format: hh:mm                              |
 | 0x0A8..AC  |                |     |          | reserved                                   |
-| 0x0B0      | SW1 Version    | R/W | 32 chars | see SW0                                    |
-| 0x0D0      | SW1 Build Date | R/W | [31:0]   | see SW0                                    |
-| 0x0D4      | SW1 Build Time | R/W | [15:0]   | see SW0                                    |
+| 0x0B0      | SW1 Version    | R/W | 32 chars | see SW1                                    |
+| 0x0D0      | SW1 Build Date | R/W | [31:0]   | see SW1                                    |
+| 0x0D4      | SW1 Build Time | R/W | [15:0]   | see SW1                                    |
 | 0x0D8..DC  |                |     |          | reserved                                   |
-| 0x0E0      | SW2 Version    | R/W | 32 chars | see SW0                                    |
-| 0x100      | SW2 Build Date | R/W | [31:0]   | see SW0                                    |
-| 0x104      | SW2 Build Time | R/W | [15:0]   | see SW0                                    |
+| 0x0E0      | SW2 Version    | R/W | 32 chars | see SW2                                    |
+| 0x100      | SW2 Build Date | R/W | [31:0]   | see SW2                                    |
+| 0x104      | SW2 Build Time | R/W | [15:0]   | see SW2                                    |
 | 0x108..10C |                |     |          | reserved                                   |
 
 * Register: 0x000...07C
