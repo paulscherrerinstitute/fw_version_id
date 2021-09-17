@@ -29,8 +29,8 @@ proc set_top_generics {} {
 
     # Update the generics
     set datetime_arr [clock format [clock seconds] -format {%Y %y %m %d %H %M %S 00}]
-    set datecode [format "%04X%02X%02X" [lindex $datetime_arr 0] [lindex $datetime_arr 2] [lindex $datetime_arr 3]]
-    set timecode [format "%02X%02X" [lindex $datetime_arr 4] [lindex $datetime_arr 5]]
+    set datecode [format "%04X%02X%02X" [scan [lindex $datetime_arr 0] %d] [scan [lindex $datetime_arr 2] %d] [scan [lindex $datetime_arr 3] %d]]
+    set timecode [format "%02X%02X" [scan [lindex $datetime_arr 4] %d] [scan [lindex $datetime_arr 5] %d]]
 
     set current_generics ""
 
