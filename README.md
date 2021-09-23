@@ -32,19 +32,24 @@ See [Changelog](Changelog.md)
 | ------     | --------       | --- | ---      | -----------                                |
 | 0x000      | Facility       | R   | 16 chars | Facility e.g. SwissFEL                     |
 | 0x010      | Project        | R   | 16 chars | Project e.g. DBPM3-AthosBPM                |
-| 0x020      | GPIO           | R   | [15:0]   | GPIO, eg. Hardware Rev pins, DIP switch    |
-| 0x024..2C  |                | R   |          | Reserved                                   |
-| 0x030      | 1. Descriptor  | R   | 4 chars  | PL, RPU0, RPU1, APU, uB_0                  |
-| 0x034      | 1. Version     | R   | 32 chars | Version in Git Describe format             |
-| 0x054      | 1. Buid Date   | R   | [31:0]   | Format: YYYY-MM-DD, encoded as: 0xYYYYMMDD |
-| 0x058      | 1. Buid Time   | R   | [15:0]   | Format: hh:mm, encoded as: 0x0000hhmm      |
-| 0x05C..7C  |                |     |          | reserved                                   |
-| 0x080      | 2. Descriptor  | R   | 4 chars  | PL, RPU0, RPU1, APU, uB_0                  |
-| 0x084      | 2. Descriptor  | R/W | 32 chars | Git Describe based version                 |
-| 0x0B4      | 2. Build Date  | R/W | [31:0]   | Format: YYY-MM-DD                          |
-| 0x0B8      | 2. Build Time  | R/W | [15:0]   | Format: hh:mm                              |
-| 0x0BC..DC  |                |     |          | reserved                                   |
-| 0x0E0..    | Further SW     | R/W |          | other software, etc                        |
+| 0x020      | FW Version     | R   | 32 chars | FW Version in Git Describe format          |
+| 0x040      | FW Buid Date   | R   | [31:0]   | Format: YYYY-MM-DD, encoded as: 0xYYYYMMDD |
+| 0x044      | FW Buid Time   | R   | [15:0]   | Format: hh:mm, encoded as: 0x0000hhmm      |
+| 0x048      | GPIO           | R   | [15:0]   | GPIO, eg. Hardware Rev pins, DIP switch    |
+| 0x04C..7C  |                |     |          | reserved                                   |
+| 0x080      | SW0 Version    | R/W | 32 chars | Git Describe based version                 |
+| 0x0A0      | SW0 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
+| 0x0A4      | SW0 Build Time | R/W | [15:0]   | Format: hh:mm                              |
+| 0x0A8..AC  |                |     |          | reserved                                   |
+| 0x0B0      | SW1 Version    | R/W | 32 chars | Git Describe based version                 |
+| 0x0D0      | SW1 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
+| 0x0D4      | SW1 Build Time | R/W | [15:0]   | Format: hh:mm                              |
+| 0x0D8..DC  |                |     |          | reserved                                   |
+| 0x0E0      | SW2 Version    | R/W | 32 chars | Git Describe based version                 |
+| 0x100      | SW2 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
+| 0x104      | SW2 Build Time | R/W | [15:0]   | Format: hh:mm                              |
+| 0x108..10C |                |     |          | reserved                                   |
+| 0x110..    | Further SW     | R/W |          | other software, etc                        |
     
 
 * Register: 0x000...07C
