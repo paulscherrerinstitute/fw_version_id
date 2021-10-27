@@ -6,57 +6,69 @@
 #include "fw_version_id.h"
 
 // -------------------------------------------------
-uint32_t get_offset(versionid_t sw_id) {
-  switch (sw_id) {
-    case FW:
-      return 0x020;
-      break;
-    case SW0:
-      return 0x080;
-      break;
-    case SW1:
-      return 0x0B0;
-      break;
-    case SW2:
-      return 0x0E0;
-      break;
-    default:
-      return 0;
-  }
+void set_version_id(const uint32_t base_addr, uint8_t idx, char* version) {
+   // Write Git Describe version as 32 byte string:
+  volatile structId_t *fwId = (structId_t *)base_addr;
+
+  fwId->version[idx].version[VERSION_STRING_SIZE-1] = 0;
+
+  for(int i=0;i<8;i++) {
+    // store as little endian:
+     fwId->version[idx].version[(i*4)+3] = version[(i*4)+0];
+     fwId->version[idx].version[(i*4)+2] = version[(i*4)+1];
+     fwId->version[idx].version[(i*4)+1] = version[(i*4)+2];
+     fwId->version[idx].version[(i*4)+0] = version[(i*4)+3];
+   }
 }
 
 // -------------------------------------------------
-void set_version_git(const uint32_t base_addr, versionid_t id, char * version) {
-  uint32_t offset = get_offset(id);
-
-  if (offset != 0) {
-     // Write Git Describe version as 32 byte string to EpicsParamRam:
-    uint32_t version_part;
-    for(int i=0;i<8;i++) {
-      // store as little endian:
-       version_part = (version[(i*4)+3]<<24) | (version[(i*4)+2]<<16) | (version[(i*4)+1]<<8) | version[(i*4)];
-       Xil_Out32(base_addr + offset + (i*4), version_part);
-    }
-  }
+void get_version_id(const uint32_t base_addr, uint8_t id, structIdVersion_t* dataset) {
+   // Write Git Describe version as 32 byte string:
+  volatile structId_t *fwId = (structId_t *)base_addr;
+  //dataset = fwId->version[idx];
 }
 
 // -------------------------------------------------
-void set_version_build(const uint32_t base_addr, versionid_t id, const uint32_t build_date, const uint32_t build_time) {
-  uint32_t offset = get_offset(id);
+void get_version_all(const uint32_t base_addr, uint8_t idx, structId_t* dataset) {
+   // Write Git Describe version as 32 byte string:
+  volatile structId_t *fwId = (structId_t *)base_addr;
+  dataset = fwId;
+}
 
-  if (offset != 0) {
-    Xil_Out32(base_addr + offset + 0x20, build_date);
-    Xil_Out32(base_addr + offset + 0x24, build_time);
-  }
+
+// -------------------------------------------------
+void set_version_datetime(const uint32_t base_addr, uint8_t idx) {
+  volatile structId_t *fwId = (structId_t *)base_addr;
+  volatile structIdVersion_t *ver = (structIdVersion_t *)&fwId[idx];
+
+  ver->datetime[0] = __DATE__[7];
+  ver->datetime[1] = __DATE__[8];
+  ver->datetime[2] = __DATE__[9];
+  ver->datetime[3] = __DATE__[10];
+  ver->datetime[4] = '-';
+  ver->datetime[5] = (DATE_MONTH / 10) + '0';
+  ver->datetime[6] = (DATE_MONTH / 10 * 10 - DATE_MONTH) + '0';
+  ver->datetime[7] = '-';
+  ver->datetime[8] = __DATE__[4];
+  ver->datetime[9] = __DATE__[5];
+  ver->datetime[10] = ' ';
+  ver->datetime[11] = __TIME__[0];
+  ver->datetime[12] = __TIME__[1];
+  ver->datetime[13] = ':';
+  ver->datetime[14] = __TIME__[3];
+  ver->datetime[15] = __TIME__[4];
+  ver->datetime[16] = 0;
 }
 
 // -------------------------------------------------
-void get_version_build(const uint32_t base_addr, versionid_t id, char* build_datetime, const size_t size) {
-  uint32_t offset = get_offset(id);
+void get_version_build(const uint32_t base_addr, uint8_t id, char* build_datetime, const size_t size) {
+  uint32_t offset = 2;
   uint8_t i=0, c=0;
 
-  uint32_t build_date = Xil_In32(base_addr + offset + 0x20);
-  uint32_t build_time = Xil_In32(base_addr + offset + 0x24);
+  //uint32_t build_date = Xil_In32(base_addr + offset + 0x20);
+ uint32_t build_date;
+ uint32_t build_time;
+  //uint32_t build_time = Xil_In32(base_addr + offset + 0x24);
 
   // build date string: YYYY-MM-DD
   for (i=0;i<8;i++) {

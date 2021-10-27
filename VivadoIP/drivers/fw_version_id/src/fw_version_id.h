@@ -13,8 +13,8 @@ extern "C" {
 //*******************************************************************************
 // Includes
 //*******************************************************************************
+#include <stddef.h>
 #include <stdint.h>
-#include <xil_io.h>
 
 /*****************************************************************************
  * Build Date/Time 
@@ -36,6 +36,7 @@ extern "C" {
 /* Dec  1 2015 */
 /* 0123456789A */
 #define DATE_YEAR (((__DATE__[ 7] - '0') * 1000) + ((__DATE__[ 8] - '0') * 100) + ((__DATE__[ 9] - '0') * 10) + (__DATE__[10] - '0'))
+
 #define DATE_MONTH (__DATE__[ 0] == 'J' && __DATE__[ 1] == 'a' && __DATE__[ 2] == 'n' ?  1 :\
                     __DATE__[ 0] == 'F' && __DATE__[ 1] == 'e' && __DATE__[ 2] == 'b' ?  2 :\
                     __DATE__[ 0] == 'M' && __DATE__[ 1] == 'a' && __DATE__[ 2] == 'r' ?  3 :\
@@ -57,6 +58,7 @@ extern "C" {
 #define TIME_HOUR   (__TIME__[0] == ' ' ? (__TIME__[1] - '0') : (((__TIME__[0] - '0') * 10) + (__TIME__[1] - '0')))
 #define TIME_MINUTE (__TIME__[3] == ' ' ? (__TIME__[4] - '0') : (((__TIME__[3] - '0') * 10) + (__TIME__[4] - '0')))
 
+
 //*******************************************************************************
 // User Macros
 //*******************************************************************************
@@ -65,23 +67,43 @@ extern "C" {
 #define SW_BUILD_TIME    ((TIME_HOUR<<8) + TIME_MINUTE)
 
 #define VERSION_STRING_SIZE 32
+#define BUILDDATE_STRING_SIZE 16
+
+#define MAX_VERSIONS 5
 
 //*******************************************************************************
 // Types
 //*******************************************************************************
-typedef enum {
-  FW  = 0,
-  SW0 = 1,
-  SW1 = 2,
-  SW2 = 3,
-} versionid_t;
+typedef struct __attribute__ ((packed)) {
+} structIdBuildDate_t;
+
+typedef struct __attribute__ ((packed)) {
+} structIdBuildTime_t;
+
+// Version structure:
+typedef struct __attribute__ ((packed)) {
+  uint8_t descriptor[8];
+  char version[VERSION_STRING_SIZE];
+  char datetime[BUILDDATE_STRING_SIZE];
+} structIdVersion_t;
+
+// Main memory structure:
+typedef struct __attribute__ ((packed)) {
+  uint8_t facility[16];
+  uint8_t project[16];
+  uint8_t hardwareRev[4];
+  structIdVersion_t version[MAX_VERSIONS];
+} structId_t;
+
 
 //*******************************************************************************
 // Functions
 //*******************************************************************************
-void set_version_git(const uint32_t base_addr, versionid_t sw_id, char * version);
-void set_version_build(const uint32_t base_addr, versionid_t sw_id, const uint32_t build_date, const uint32_t build_time);
-void get_version_build(const uint32_t base_addr, versionid_t sw_id, char* build_datetime, const size_t size);
+void set_version_id(const uint32_t base_addr, uint8_t idx, char* version);
+void set_version_build(const uint32_t base_addr, uint8_t idx);
+void get_version_id(const uint32_t base_addr, uint8_t idx, structIdVersion_t* dataset);
+void get_version_all(const uint32_t base_addr, uint8_t idx, structId_t* dataset);
+void get_version_build(const uint32_t base_addr, uint8_t idx, char* build_datetime, const size_t size);
 
 
 #ifdef __cplusplus
