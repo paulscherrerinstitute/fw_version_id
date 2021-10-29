@@ -28,28 +28,21 @@ See [Changelog](Changelog.md)
 
 ## AXI Address Map
 
-| Offset     | Register       | R/W | Length   | Description                                |
-| ------     | --------       | --- | ---      | -----------                                |
-| 0x000      | Facility       | R   | 16 chars | Facility e.g. SwissFEL                     |
-| 0x010      | Project        | R   | 16 chars | Project e.g. DBPM3-AthosBPM                |
-| 0x020      | FW Version     | R   | 32 chars | FW Version in Git Describe format          |
-| 0x040      | FW Buid Date   | R   | [31:0]   | Format: YYYY-MM-DD, encoded as: 0xYYYYMMDD |
-| 0x044      | FW Buid Time   | R   | [15:0]   | Format: hh:mm, encoded as: 0x0000hhmm      |
-| 0x048      | GPIO           | R   | [15:0]   | GPIO, eg. Hardware Rev pins, DIP switch    |
-| 0x04C..7C  |                |     |          | reserved                                   |
-| 0x080      | SW0 Version    | R/W | 32 chars | Git Describe based version                 |
-| 0x0A0      | SW0 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
-| 0x0A4      | SW0 Build Time | R/W | [15:0]   | Format: hh:mm                              |
-| 0x0A8..AC  |                |     |          | reserved                                   |
-| 0x0B0      | SW1 Version    | R/W | 32 chars | Git Describe based version                 |
-| 0x0D0      | SW1 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
-| 0x0D4      | SW1 Build Time | R/W | [15:0]   | Format: hh:mm                              |
-| 0x0D8..DC  |                |     |          | reserved                                   |
-| 0x0E0      | SW2 Version    | R/W | 32 chars | Git Describe based version                 |
-| 0x100      | SW2 Build Date | R/W | [31:0]   | Format: YYY-MM-DD                          |
-| 0x104      | SW2 Build Time | R/W | [15:0]   | Format: hh:mm                              |
-| 0x108..10C |                |     |          | reserved                                   |
-| 0x110..    | Further SW     | R/W |          | other software, etc                        |
+| Offset     | Register           | R/W | Length   | Description                                         |
+| ------     | --------           | --- | ---      | -----------                                         |
+| 0x000 tbd  | Facility           | R   | 16 chars | Facility e.g. SwissFEL                              |
+| 0x010      | Project            | R   | 16 chars | Project e.g. DBPM3-AthosBPM                         |
+| 0x040      | HW Revision        | R   | 4 chars  | String for HW Revision                              |
+| 0x020      | ID0 Descriptor     | R   | 8 chars  | Descriptor of current version block                 |
+| 0x020      | ID0 Version        | R   | 32 chars | FW Version in Git Describe format                   |
+| 0x040      | ID0 Buid Date/Time | R   | 20 chars | Format: YYYY-MM-DD HH:MM:SS                         |
+| 0x04C..7C  |                    |     |          | reserved                                            |
+| 0x020      | ID1 Descriptor     | R   | 8 chars  | Descriptor of current version block                 |
+| 0x020      | ID1 Version        | R   | 32 chars | FW Version in Git Describe format                   |
+| 0x040      | ID1 Buid Date/Time | R   | 20 chars | Format: YYYY-MM-DD HH:MM:SS                         |
+| 0x108..10C |                    |     |          | reserved                                            |
+| 0x108..10C | ..........         |     |          |                                             |
+
     
 
 * Register: 0x000...07C

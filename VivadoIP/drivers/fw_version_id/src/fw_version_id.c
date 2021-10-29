@@ -6,101 +6,94 @@
 #include "fw_version_id.h"
 
 // -------------------------------------------------
-void set_version_id(const uint32_t base_addr, uint8_t idx, char* version) {
-   // Write Git Describe version as 32 byte string:
-  volatile structId_t *fwId = (structId_t *)base_addr;
+// Private Functions
+// -------------------------------------------------
 
-  fwId->version[idx].version[VERSION_STRING_SIZE-1] = 0;
+// Volatile memory copy:
+void v_memcpy(volatile void *dest, const volatile void *src, size_t size) { 
 
-  for(int i=0;i<8;i++) {
-    // store as little endian:
-     fwId->version[idx].version[(i*4)+3] = version[(i*4)+0];
-     fwId->version[idx].version[(i*4)+2] = version[(i*4)+1];
-     fwId->version[idx].version[(i*4)+1] = version[(i*4)+2];
-     fwId->version[idx].version[(i*4)+0] = version[(i*4)+3];
-   }
+  const volatile uint8_t *src_c = src;
+  volatile uint8_t *dest_c  = dest;
+
+  while (size > 0) {
+      size--;
+      dest_c[size] = src_c[size];
+  }
 }
 
 // -------------------------------------------------
-void get_version_id(const uint32_t base_addr, uint8_t id, structIdVersion_t* dataset) {
+// Public Functions
+// -------------------------------------------------
+void set_version_id(const uint64_t base_addr, enumIdIndex_t idx, char* descriptor, char* version) {
    // Write Git Describe version as 32 byte string:
   volatile structId_t *fwId = (structId_t *)base_addr;
-  //dataset = fwId->version[idx];
+
+  v_memcpy(fwId->version[idx].descriptor, descriptor, sizeof(fwId->version[idx].descriptor));
+  v_memcpy(fwId->version[idx].version, version, sizeof(fwId->version[idx].version));
+
+  set_version_datetime(base_addr, idx, __DATE__, __TIME__);
 }
 
 // -------------------------------------------------
-void get_version_all(const uint32_t base_addr, uint8_t idx, structId_t* dataset) {
-   // Write Git Describe version as 32 byte string:
-  volatile structId_t *fwId = (structId_t *)base_addr;
-  dataset = fwId;
+volatile structIdVersion_t* get_version_id(const uint64_t base_addr, enumIdIndex_t idx) {
+  structId_t *fwId = (structId_t *)base_addr;
+  return &(fwId->version[idx]);
 }
 
+// -------------------------------------------------
+volatile structId_t* get_version_all(const uint64_t base_addr) {
+  volatile structId_t *fwId = (structId_t *)base_addr;
+  return fwId;
+}
 
 // -------------------------------------------------
-void set_version_datetime(const uint32_t base_addr, uint8_t idx) {
+void set_version_datetime(const uint64_t base_addr, enumIdIndex_t idx, char* date, char* time) {
   volatile structId_t *fwId = (structId_t *)base_addr;
-  volatile structIdVersion_t *ver = (structIdVersion_t *)&fwId[idx];
+  volatile structIdVersion_t *ver = &(fwId->version[idx]);
 
-  ver->datetime[0] = __DATE__[7];
-  ver->datetime[1] = __DATE__[8];
-  ver->datetime[2] = __DATE__[9];
-  ver->datetime[3] = __DATE__[10];
+// convert the month names into a number:
+uint8_t month =    (date[ 0] == 'J' && date[ 1] == 'a' && date[ 2] == 'n' ?  1 :
+                    date[ 0] == 'F' && date[ 1] == 'e' && date[ 2] == 'b' ?  2 :
+                    date[ 0] == 'M' && date[ 1] == 'a' && date[ 2] == 'r' ?  3 :
+                    date[ 0] == 'A' && date[ 1] == 'p' && date[ 2] == 'r' ?  4 :
+                    date[ 0] == 'M' && date[ 1] == 'a' && date[ 2] == 'y' ?  5 :
+                    date[ 0] == 'J' && date[ 1] == 'u' && date[ 2] == 'n' ?  6 :
+                    date[ 0] == 'J' && date[ 1] == 'u' && date[ 2] == 'l' ?  7 :
+                    date[ 0] == 'A' && date[ 1] == 'u' && date[ 2] == 'g' ?  8 :
+                    date[ 0] == 'S' && date[ 1] == 'e' && date[ 2] == 'p' ?  9 :
+                    date[ 0] == 'O' && date[ 1] == 'c' && date[ 2] == 't' ? 10 :
+                    date[ 0] == 'N' && date[ 1] == 'o' && date[ 2] == 'v' ? 11 :
+                    date[ 0] == 'D' && date[ 1] == 'e' && date[ 2] == 'c' ? 12 :
+                    0);
+
+  ver->datetime[0] = date[7];
+  ver->datetime[1] = date[8];
+  ver->datetime[2] = date[9];
+  ver->datetime[3] = date[10];
   ver->datetime[4] = '-';
-  ver->datetime[5] = (DATE_MONTH / 10) + '0';
-  ver->datetime[6] = (DATE_MONTH / 10 * 10 - DATE_MONTH) + '0';
+  ver->datetime[5] = (month / 10) + '0';
+  ver->datetime[6] = (month / 10 * 10 - month) + '0';
   ver->datetime[7] = '-';
-  ver->datetime[8] = __DATE__[4];
-  ver->datetime[9] = __DATE__[5];
+  ver->datetime[8] = date[4];
+  ver->datetime[9] = date[5];
   ver->datetime[10] = ' ';
-  ver->datetime[11] = __TIME__[0];
-  ver->datetime[12] = __TIME__[1];
+  ver->datetime[11] = time[0];
+  ver->datetime[12] = time[1];
   ver->datetime[13] = ':';
-  ver->datetime[14] = __TIME__[3];
-  ver->datetime[15] = __TIME__[4];
-  ver->datetime[16] = 0;
+  ver->datetime[14] = time[3];
+  ver->datetime[15] = time[4];
+  ver->datetime[16] = ':';
+  ver->datetime[17] = time[6];
+  ver->datetime[18] = time[7];
+  ver->datetime[19] = 0;
+  ver->datetime[20] = 0;
 }
 
 // -------------------------------------------------
-void get_version_build(const uint32_t base_addr, uint8_t id, char* build_datetime, const size_t size) {
-  uint32_t offset = 2;
-  uint8_t i=0, c=0;
+void set_version_hw(const uint64_t base_addr, char* facility, char* project, char* hardwareRev) {
+  structId_t *fwId = (structId_t *)base_addr;
+  v_memcpy(fwId->facility, facility, 16);
+  v_memcpy(fwId->project, project, 16);
+  v_memcpy(fwId->hardwareRev, hardwareRev, 4);
 
-  //uint32_t build_date = Xil_In32(base_addr + offset + 0x20);
- uint32_t build_date;
- uint32_t build_time;
-  //uint32_t build_time = Xil_In32(base_addr + offset + 0x24);
-
-  // build date string: YYYY-MM-DD
-  for (i=0;i<8;i++) {
-    build_datetime[c] = 48 + (build_date>>(28-i*4)&0xF);
-    switch (i) {
-      case 3:
-        build_datetime[4] = '-';
-        c+=2;
-        break;
-      case 5:
-        build_datetime[7] = '-';
-        c+=2;
-        break;
-      default:
-        c++;
-    }
-  }
-
-  // build time string: hh:mm
-  c=0;
-  for (i=0;i<4;i++) {
-    build_datetime[c] = 48 + (build_time>>(12-i*4)&0xF);
-    switch (i) {
-      case 1:
-        build_datetime[2] = ':';
-        c+=2;
-        break;
-      default:
-        c++;
-    }
-  }
-
-  build_datetime[c] = 0;
 }
-
