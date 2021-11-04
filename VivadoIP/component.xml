@@ -370,7 +370,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>1669ce29</spirit:value>
+            <spirit:value>3b8eb175</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -386,7 +386,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>1669ce29</spirit:value>
+            <spirit:value>3b8eb175</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -400,7 +400,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>23aa11f1</spirit:value>
+            <spirit:value>909a93d4</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -422,7 +422,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>345bb928</spirit:value>
+            <spirit:value>0321fb1b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -449,11 +449,11 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>param_fw_build_date_i</spirit:name>
+        <spirit:name>param_fw_build_datetime_i</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:left spirit:format="long">159</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -469,31 +469,11 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>param_fw_build_time_i</spirit:name>
+        <spirit:name>rev_pins_i</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
             <spirit:left spirit:format="long">31</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>gpio_i</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">15</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -1153,6 +1133,11 @@
         <spirit:displayName>C Id Project</spirit:displayName>
         <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_ID_PROJECT">PROJECT</spirit:value>
       </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="boolean">
+        <spirit:name>C_REV_PINS</spirit:name>
+        <spirit:displayName>C Rev Pins</spirit:displayName>
+        <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_REV_PINS">FALSE</spirit:value>
+      </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_S00_AXI_ID_WIDTH</spirit:name>
         <spirit:displayName>C S00 Axi Id Width</spirit:displayName>
@@ -1208,7 +1193,7 @@
       <spirit:file>
         <spirit:name>../hdl/fw_version_id_axi.vhd</spirit:name>
         <spirit:userFileType>vhdlSource-2008</spirit:userFileType>
-        <spirit:userFileType>CHECKSUM_7e3456d0</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_296c9f27</spirit:userFileType>
         <spirit:logicalName>fw_version_id_1_0</spirit:logicalName>
       </spirit:file>
     </spirit:fileSet>
@@ -1255,7 +1240,7 @@
       <spirit:file>
         <spirit:name>xgui/fw_version_id_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_23aa11f1</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_909a93d4</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1308,6 +1293,11 @@
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.C_ID_PROJECT">PROJECT</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
+      <spirit:name>C_REV_PINS</spirit:name>
+      <spirit:displayName>External Rev Pins</spirit:displayName>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.C_REV_PINS">FALSE</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
       <spirit:name>C_S00_AXI_ID_WIDTH</spirit:name>
       <spirit:displayName>C S00 Axi Id Width</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S00_AXI_ID_WIDTH">1</spirit:value>
@@ -1353,37 +1343,37 @@
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:vendorDisplayName>Paul Scherrer Institute</xilinx:vendorDisplayName>
       <xilinx:vendorURL>http://www.psi.ch</xilinx:vendorURL>
-      <xilinx:coreRevision>1613867699</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-02-21T00:35:40Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>1636015338</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-11-04T08:43:11Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@536a087f_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@279a831c_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@a5a6fb3_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@490ab91c_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@51e3a64e_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@32772fd2_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@39067361_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d3e33a4_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cbda767_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@566d4693_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@337b0dbd_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f73a561_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ec2f321_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e71a47d_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@63245e5e_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cc01299_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@52a98099_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a87fd43_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67b303_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1debd5f5_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25cea78f_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14064c45_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4485aa41_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5495001b_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ca38fab_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@683efe71_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6516ca47_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@120f8571_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@595a8f5e_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c2e146d_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36f2df21_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30805e6a_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7228557c_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@982dd20_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31a1e99b_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70ebd56c_ARCHIVE_LOCATION">/psi/GFA/DI/SF/BPM_CAV_4G9/Dbpm3_Cav4G9/Library/Firmware/VHDL/fw_version_id/VivadoIP</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
+      <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="51cb901c"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="37ff661a"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="1ec2d7a6"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="e41b39b6"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="a57b9e31"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="c0afaa01"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="04182b5a"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="32b9a71f"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="7d2bcdc2"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="cf33349c"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

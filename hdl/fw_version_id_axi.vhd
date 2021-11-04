@@ -27,6 +27,7 @@ entity fw_version_id_axi is
     C_FREQ_HZ                : positive := 125_000_000;             -- clk frequency in Hz
     C_ID_FACILITY            : string  := "FACILITY";
     C_ID_PROJECT             : string  := "PROJECT";
+    C_REV_PINS               : boolean  := FALSE;
 
     -- AXI Parameters
     C_S00_AXI_ID_WIDTH       : integer := 1;                 -- Width of ID for for write address, write data, read address and read data
@@ -37,15 +38,15 @@ entity fw_version_id_axi is
     -----------------------------------------------------------------------------
     -- Parameters, connecting to top level
     -----------------------------------------------------------------------------
-    param_fw_git_version_i : in  std_logic_vector(255 downto 0) := (others=>'0');
-    param_fw_build_date_i  : in  std_logic_vector(31 downto 0) := (others=>'0');
-    param_fw_build_time_i  : in  std_logic_vector(31 downto 0) := (others=>'0');
+    param_fw_git_version_i    : in  std_logic_vector(255 downto 0) := (others=>'0');
+    param_fw_build_datetime_i : in  std_logic_vector(159 downto 0) := (others=>'0');
+    --param_fw_build_date_i  : in  std_logic_vector(31 downto 0) := (others=>'0');
+    --param_fw_build_time_i  : in  std_logic_vector(31 downto 0) := (others=>'0');
 
     -----------------------------------------------------------------------------
-    -- GPIO
+    -- External HW Rev Pins
     -----------------------------------------------------------------------------
-    gpio_i    : in std_logic_vector(15 downto 0);
-    --led_o     : out std_logic_vector(7 downto 0);
+    rev_pins_i    : in std_logic_vector(31 downto 0);
 
     -----------------------------------------------------------------------------
     -- Axi Slave Bus Interface
@@ -123,7 +124,7 @@ architecture rtl of fw_version_id_axi is
   --------------------------
   -- Array of desired number of chip enables for each address range
   constant USER_SLV_NUM_REG               : integer := 32; 
-  constant RAM_SIZE_DWORD                 : integer := 64; -- Number of 32-bit RAM entries
+  constant RAM_SIZE_DWORD                 : integer := 5*16; -- Number of 32-bit RAM entries
 
   --------------------------
   -- Signals
@@ -145,6 +146,8 @@ architecture rtl of fw_version_id_axi is
   --signal facility                : std_logic_vector(127 downto 0) := str2slv(C_ID_FACILITY'length * 8 - 1 downto 0);
   signal facility                : std_logic_vector(127 downto 0) := str2slv(C_ID_FACILITY, 128);
   signal project                 : std_logic_vector(127 downto 0) := str2slv(C_ID_PROJECT, 128);
+  signal PL_descriptor           : std_logic_vector(63 downto 0) := str2slv("PL", 64);
+  signal hw_rev                  : std_logic_vector(31 downto 0) := (others=>'0');
 
 begin
 
@@ -230,22 +233,58 @@ begin
     --------------------------------------------------------------------------
     -- AXI Register Map
     --------------------------------------------------------------------------
+
+   proc_reg : process(s00_axi_aclk)
+   begin
+     if (rising_edge(s00_axi_aclk)) then
+       -- external rev pins:
+       if (C_REV_PINS = TRUE) then
+         hw_rev <= rev_pins_i;
+       else
+         -- register based hw rev, written by software:
+         if (reg_wr(8) = '1') then
+           hw_rev <= reg_wdata(8);
+         end if;
+       end if;
+     end if;
+
+   end process;
+
+
+    -- 0x000 : Facility
     gen_reg_facility: for i in 0 to 3 generate 
     reg_rdata(i+0) <= facility(i*32 +32-1 downto i*32);
     end generate;
 
+    -- 0x010 : Project
     gen_reg_project: for i in 0 to 3 generate 
     reg_rdata(i+4) <= project(i*32 +32-1 downto i*32);
     end generate;
 
-    gen_reg_git: for i in 0 to 7 generate 
-    reg_rdata(i+8) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
+    -- 0x020 : HW Revision
+    reg_rdata(8) <= hw_rev;
+
+    reg_rdata(9)  <= (others=>'0'); -- reserved
+    reg_rdata(10) <= (others=>'0'); -- reserved
+    reg_rdata(11) <= (others=>'0'); -- reserved
+
+    -- 0x30 ID0 - Descriptor PL
+    gen_reg_descr: for i in 0 to 1 generate 
+    reg_rdata(i+12) <= pl_descriptor(i*32 +32-1 downto i*32);
     end generate;
 
-    reg_rdata(16) <= param_fw_build_date_i;
-    reg_rdata(17) <= param_fw_build_time_i;
+    -- 0x38 ID0 - Git Repo Version
+    gen_reg_gitrev: for i in 0 to 7 generate 
+      reg_rdata(i+14) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
+    end generate;
 
-    reg_rdata(18) <= x"0000" & gpio_i;
+    -- 0x58 ID0 - Build Date/time:
+    gen_reg_datetime: for i in 0 to 4 generate 
+      reg_rdata(i+22) <= param_fw_build_datetime_i(i*32 +32-1 downto i*32);
+    end generate;
+
+    --reg_rdata(16) <= param_fw_build_date_i;
+    --reg_rdata(17) <= param_fw_build_time_i;
 
    ---------------------------------------------------------------------------
    -- BRAM 

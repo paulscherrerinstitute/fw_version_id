@@ -58,9 +58,12 @@ gui_add_parameter
 gui_create_parameter "C_ID_PROJECT" "Project (max 16 char)"
 gui_add_parameter
 
+gui_create_parameter "C_REV_PINS" "External Rev Pins"
+gui_add_parameter
 
 gui_create_parameter "C_FREQ_HZ" "Clock frquency in Hz"
 gui_add_parameter
+
 
 ###############################################################
 # Package Core

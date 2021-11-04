@@ -10,11 +10,11 @@ proc string_to_hex {str} {
   #puts " tmp : $tmp"
   #set swapped [binary format Ai* [string length $tmp] $tmp]
   #puts " swapped : $swapped"
-  puts " str : $str"
+  #puts " str : $str"
   set str_reverse [string reverse $str]
-  puts " str_reverse : $str_reverse"
+  #puts " str_reverse : $str_reverse"
   binary scan $str_reverse H* hexdata
-  puts " hexdata : $hexdata"
+  #puts " hexdata : $hexdata"
   return $hexdata
 }
 
@@ -28,18 +28,22 @@ proc set_top_generics {} {
     cd $proj_dir
 
     # Update the generics
-    set datetime_arr [clock format [clock seconds] -format {%Y %y %m %d %H %M %S 00}]
-    set datecode [format "%04X%02X%02X" [scan [lindex $datetime_arr 0] %d] [scan [lindex $datetime_arr 2] %d] [scan [lindex $datetime_arr 3] %d]]
-    set timecode [format "%02X%02X" [scan [lindex $datetime_arr 4] %d] [scan [lindex $datetime_arr 5] %d]]
+    set datetime_str [clock format [clock seconds] -format {%Y-%m-%d %H:%M:%S}]
+
+    #set datetime_arr [clock format [clock seconds] -format {%Y %y %m %d %H %M %S 00}]
+    #set datecode [format "%04X%02X%02X" [scan [lindex $datetime_arr 0] %d] [scan [lindex $datetime_arr 2] %d] [scan [lindex $datetime_arr 3] %d]]
+    #set datetime_str [format "%04s-%02s-%02s %2s:%2s:%2s" [scan [lindex $datetime_arr 0] %d] [scan [lindex $datetime_arr 2] %d] [scan [lindex $datetime_arr 3] %d] [scan [lindex $datetime_arr 4] %d] [scan [lindex $datetime_arr 5] %d] [scan [lindex $datetime_arr 6] %d]]
+    #set timecode [format "%02X%02X" [scan [lindex $datetime_arr 4] %d] [scan [lindex $datetime_arr 5] %d]]
 
     set current_generics ""
 
     set current_generics [get_property generic [current_fileset]]
     puts "current generics:  $current_generics"
 
-    puts " version_id Date:  $datecode"
-    puts " version_id Time:  $timecode"
+    puts " version_id Date/Time:  $datetime_str"
+    set datetime_hex [string_to_hex $datetime_str]
 
+    # Get git repo version description and convert to hex numbers:
     set git_version [exec git describe --abbrev=6 --dirty --always --tags]
     puts " git version: $git_version"
     set git_hex [string_to_hex $git_version]
@@ -47,12 +51,14 @@ proc set_top_generics {} {
 
     puts " version_id Git:  $git_hex"
 
-    set_property generic "G_FW_BUILD_DATE=32'h$datecode G_FW_BUILD_TIME=32'h$timecode G_FW_GIT_VERSION=256'h$git_hex" [current_fileset]
+    set_property generic "G_FW_BUILD_DATE_TIME=160'h$datetime_hex G_FW_GIT_VERSION=256'h$git_hex" [current_fileset]
 
     set current_generics [get_property generic [current_fileset]]
     puts "current generics: $current_generics"
 
+    cd $curr_dir
   }
 
 set_top_generics
+
 

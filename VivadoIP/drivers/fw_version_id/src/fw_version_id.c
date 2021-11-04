@@ -35,46 +35,32 @@ void set_version_id(const uint64_t base_addr, enumIdIndex_t idx, char* descripto
 }
 
 // -------------------------------------------------
-volatile structIdVersion_t* get_version_id(const uint64_t base_addr, enumIdIndex_t idx) {
-  structId_t *fwId = (structId_t *)base_addr;
-  return &(fwId->version[idx]);
-}
-
-// -------------------------------------------------
-volatile structId_t* get_version_all(const uint64_t base_addr) {
-  volatile structId_t *fwId = (structId_t *)base_addr;
-  return fwId;
-}
-
-// -------------------------------------------------
 void set_version_datetime(const uint64_t base_addr, enumIdIndex_t idx, char* date, char* time) {
   volatile structId_t *fwId = (structId_t *)base_addr;
   volatile structIdVersion_t *ver = &(fwId->version[idx]);
 
-// convert the month names into a number:
-uint8_t month =    (date[ 0] == 'J' && date[ 1] == 'a' && date[ 2] == 'n' ?  1 :
-                    date[ 0] == 'F' && date[ 1] == 'e' && date[ 2] == 'b' ?  2 :
-                    date[ 0] == 'M' && date[ 1] == 'a' && date[ 2] == 'r' ?  3 :
-                    date[ 0] == 'A' && date[ 1] == 'p' && date[ 2] == 'r' ?  4 :
-                    date[ 0] == 'M' && date[ 1] == 'a' && date[ 2] == 'y' ?  5 :
-                    date[ 0] == 'J' && date[ 1] == 'u' && date[ 2] == 'n' ?  6 :
-                    date[ 0] == 'J' && date[ 1] == 'u' && date[ 2] == 'l' ?  7 :
-                    date[ 0] == 'A' && date[ 1] == 'u' && date[ 2] == 'g' ?  8 :
-                    date[ 0] == 'S' && date[ 1] == 'e' && date[ 2] == 'p' ?  9 :
-                    date[ 0] == 'O' && date[ 1] == 'c' && date[ 2] == 't' ? 10 :
-                    date[ 0] == 'N' && date[ 1] == 'o' && date[ 2] == 'v' ? 11 :
-                    date[ 0] == 'D' && date[ 1] == 'e' && date[ 2] == 'c' ? 12 :
-                    0);
+if (!memcmp(date, "Jan", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '1';}
+if (!memcmp(date, "Feb", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '2';}
+if (!memcmp(date, "Mar", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '3';}
+if (!memcmp(date, "Apr", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '4';}
+if (!memcmp(date, "May", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '5';}
+if (!memcmp(date, "Jun", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '6';}
+if (!memcmp(date, "Jul", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '7';}
+if (!memcmp(date, "Aug", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '8';}
+if (!memcmp(date, "Sep", 3)) {ver->datetime[5] = '0'; ver->datetime[6] = '9';}
+if (!memcmp(date, "Oct", 3)) {ver->datetime[5] = '1'; ver->datetime[6] = '0';}
+if (!memcmp(date, "Nov", 3)) {ver->datetime[5] = '1'; ver->datetime[6] = '1';}
+if (!memcmp(date, "Dec", 3)) {ver->datetime[5] = '1'; ver->datetime[6] = '2';}
 
   ver->datetime[0] = date[7];
   ver->datetime[1] = date[8];
   ver->datetime[2] = date[9];
   ver->datetime[3] = date[10];
   ver->datetime[4] = '-';
-  ver->datetime[5] = (month / 10) + '0';
-  ver->datetime[6] = (month / 10 * 10 - month) + '0';
+  //ver->datetime[5]
+  //ver->datetime[6]
   ver->datetime[7] = '-';
-  ver->datetime[8] = date[4];
+  ver->datetime[8] = date[4] == ' ' ? '0' : date[4];
   ver->datetime[9] = date[5];
   ver->datetime[10] = ' ';
   ver->datetime[11] = time[0];
@@ -95,5 +81,17 @@ void set_version_hw(const uint64_t base_addr, char* facility, char* project, cha
   v_memcpy(fwId->facility, facility, 16);
   v_memcpy(fwId->project, project, 16);
   v_memcpy(fwId->hardwareRev, hardwareRev, 4);
-
 }
+
+// -------------------------------------------------
+volatile structIdVersion_t* get_version_id(const uint64_t base_addr, enumIdIndex_t idx) {
+  structId_t *fwId = (structId_t *)base_addr;
+  return &(fwId->version[idx]);
+}
+
+// -------------------------------------------------
+volatile structId_t* get_version_all(const uint64_t base_addr) {
+  volatile structId_t *fwId = (structId_t *)base_addr;
+  return fwId;
+}
+

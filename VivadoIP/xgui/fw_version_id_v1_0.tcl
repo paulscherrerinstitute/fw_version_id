@@ -5,6 +5,7 @@ proc init_gui { IPINST } {
   set Configuration [ipgui::add_page $IPINST -name "Configuration"]
   ipgui::add_param $IPINST -name "C_ID_FACILITY" -parent ${Configuration}
   ipgui::add_param $IPINST -name "C_ID_PROJECT" -parent ${Configuration}
+  ipgui::add_param $IPINST -name "C_REV_PINS" -parent ${Configuration}
   ipgui::add_param $IPINST -name "C_FREQ_HZ" -parent ${Configuration}
 
 
@@ -34,6 +35,15 @@ proc update_PARAM_VALUE.C_ID_PROJECT { PARAM_VALUE.C_ID_PROJECT } {
 
 proc validate_PARAM_VALUE.C_ID_PROJECT { PARAM_VALUE.C_ID_PROJECT } {
 	# Procedure called to validate C_ID_PROJECT
+	return true
+}
+
+proc update_PARAM_VALUE.C_REV_PINS { PARAM_VALUE.C_REV_PINS } {
+	# Procedure called to update C_REV_PINS when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.C_REV_PINS { PARAM_VALUE.C_REV_PINS } {
+	# Procedure called to validate C_REV_PINS
 	return true
 }
 
@@ -69,6 +79,11 @@ proc update_MODELPARAM_VALUE.C_ID_FACILITY { MODELPARAM_VALUE.C_ID_FACILITY PARA
 proc update_MODELPARAM_VALUE.C_ID_PROJECT { MODELPARAM_VALUE.C_ID_PROJECT PARAM_VALUE.C_ID_PROJECT } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.C_ID_PROJECT}] ${MODELPARAM_VALUE.C_ID_PROJECT}
+}
+
+proc update_MODELPARAM_VALUE.C_REV_PINS { MODELPARAM_VALUE.C_REV_PINS PARAM_VALUE.C_REV_PINS } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.C_REV_PINS}] ${MODELPARAM_VALUE.C_REV_PINS}
 }
 
 proc update_MODELPARAM_VALUE.C_S00_AXI_ID_WIDTH { MODELPARAM_VALUE.C_S00_AXI_ID_WIDTH PARAM_VALUE.C_S00_AXI_ID_WIDTH } {

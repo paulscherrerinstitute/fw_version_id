@@ -42,6 +42,7 @@ typedef struct __attribute__ ((packed)) {
   char descriptor[8];
   char version[VERSION_STRING_SIZE];
   char datetime[BUILDDATE_STRING_SIZE];
+  char reserved[4];
 } structIdVersion_t;
 
 // Main memory structure:
@@ -49,6 +50,7 @@ typedef struct __attribute__ ((packed)) {
   char facility[16];
   char project[16];
   char hardwareRev[4];
+  char reserved[12];
   structIdVersion_t version[MAX_VERSIONS];
 } structId_t;
 
