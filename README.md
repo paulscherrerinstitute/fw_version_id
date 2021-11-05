@@ -36,26 +36,26 @@ See [Changelog](Changelog.md)
 | 0x010  | Project               | R   | 16 chars | Project                             | DBPM3-AthosBPM         |
 | 0x020  | HW Revision           | R   | 4 chars  | HW Revision                         | B                      |
 | 0x024  |                       |     |          | reserved                            |                        |
-| 0x030  | ID0 Descriptor *)     | R   | 8 chars  | Descriptor of current version block | PL                     |
-| 0x038  | ID0 Version *)        | R   | 32 chars | FW Version in *Git Describe* format | 0.1.0-13-g55ecb1-dirty |
-| 0x058  | ID0 Buid Date/Time *) | R   | 20 chars | Format: YYYY-MM-DD HH:MM:SS         | 2021-11-03 10:41:41    |
-| 0x06C  |                       |     |          | reserved                            |                        |
-| 0x070  | ID1 Descriptor        | RW  | 8 chars  |                                     | RPU0                   |
-| 0x078  | ID1 Version           | RW  | 32 chars |                                     | 1.2.0                  |
-| 0x098  | ID1 Buid Date/Time    | RW  | 20 chars |                                     |                        |
-| 0x0AC  |                       |     |          |                                     |                        |
-| 0x0B0  | ID2 Descriptor        | RW  | 8 chars  |                                     | RPU1                   |
-| 0x0B8  | ID2 Version           | RW  | 32 chars |                                     | 1.2.0-3-g45abc         |
-| 0x0D8  | ID2 Buid Date/Time    | RW  | 20 chars |                                     |                        |
-| 0x0EC  |                       |     |          |                                     |                        |
-| 0x0F0  | ID3 Descriptor        | RW  | 8 chars  |                                     |                        |
-| 0x0F8  | ID3 Version           | RW  | 32 chars |                                     |                        |
-| 0x118  | ID3 Buid Date/Time    | RW  | 20 chars |                                     |                        |
-| 0x12C  |                       |     |          |                                     |                        |
-| 0x130  | ID4 Descriptor        | RW  | 8 chars  |                                     |                        |
-| 0x138  | ID4 Version           | RW  | 32 chars |                                     |                        |
-| 0x158  | ID4 Buid Date/Time    | RW  | 20 chars |                                     |                        |
-| 0x16C  |                       |     |          |                                     |                        |
+| 0x040  | ID0 Descriptor *)     | R   | 8 chars  | Descriptor of current version block | PL                     |
+| 0x048  | ID0 Version *)        | R   | 32 chars | FW Version in *Git Describe* format | 0.1.0-13-g55ecb1-dirty |
+| 0x068  | ID0 Buid Date/Time *) | R   | 20 chars | Format: YYYY-MM-DD HH:MM:SS         | 2021-11-03 10:41:41    |
+| 0x07C  |                       |     |          | reserved                            |                        |
+| 0x080  | ID1 Descriptor        | RW  | 8 chars  |                                     | RPU0                   |
+| 0x088  | ID1 Version           | RW  | 32 chars |                                     | 1.2.0                  |
+| 0x0A8  | ID1 Buid Date/Time    | RW  | 24 chars |                                     |                        |
+| 0x0BC  |                       |     |          |                                     |                        |
+| 0x0C0  | ID2 Descriptor        | RW  | 8 chars  |                                     | RPU1                   |
+| 0x0C8  | ID2 Version           | RW  | 32 chars |                                     | 1.2.0-3-g45abc         |
+| 0x0E8  | ID2 Buid Date/Time    | RW  | 24 chars |                                     |                        |
+| 0x0FC  |                       |     |          |                                     |                        |
+| 0x100  | ID3 Descriptor        | RW  | 8 chars  |                                     |                        |
+| 0x108  | ID3 Version           | RW  | 32 chars |                                     |                        |
+| 0x128  | ID3 Buid Date/Time    | RW  | 24 chars |                                     |                        |
+| 0x13C  |                       |     |          |                                     |                        |
+| 0x140  | ID4 Descriptor        | RW  | 8 chars  |                                     |                        |
+| 0x148  | ID4 Version           | RW  | 32 chars |                                     |                        |
+| 0x168  | ID4 Buid Date/Time    | RW  | 24 chars |                                     |                        |
+| 0x17C  |                       |     |          |                                     |                        |
 
    *) Reserved for PL and automatically set by pre-tcl script in registers.
 

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "fw_version_id.h"
 
-#define OFFSET(base, addr) ((uint64_t)&(addr) - base)
+#define OFFSET(base, addr) (uint32_t)((uint64_t)&(addr) - base)
  
 int main() {
   volatile structIdVersion_t *version;
@@ -16,7 +16,8 @@ int main() {
   structId_t* mem = (structId_t*)malloc(sizeof(structId_t));
   uint64_t baseaddr = (uint64_t)mem;
 
-  set_version_hw(baseaddr, "SwissFEL", "Athos DBPM3", "F");
+  set_version_project(baseaddr, "SwissFEL", "Athos DBPM3");
+  set_version_hwrev(baseaddr, "F");
   set_version_id(baseaddr, ID_0, "PL", VERSION_GIT_REPO);
   set_version_id(baseaddr, ID_1, "RPU0", VERSION_GIT_REPO);
   set_version_id(baseaddr, ID_2, "RPU1", VERSION_GIT_REPO);
@@ -36,7 +37,7 @@ int main() {
   printf(" %03X : HW Revision =  %s\n", OFFSET(baseaddr, idAll->hardwareRev), idAll->hardwareRev);
 
   for (int i=0;i<MAX_VERSIONS;i++) {
-    version = get_version_id(baseaddr, i);
+    version = get_version_id(baseaddr, (enumIdIndex_t)i);
     printf("\n");
     printf(" %03X : (ID%i) Descriptor =  %s\n", OFFSET(baseaddr, version->descriptor), i, version->descriptor);
     printf(" %03X : (ID%i) Version    =  %s\n", OFFSET(baseaddr, version->version), i, version->version);

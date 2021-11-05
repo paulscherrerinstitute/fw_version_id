@@ -42,7 +42,7 @@ typedef struct __attribute__ ((packed)) {
   char descriptor[8];
   char version[VERSION_STRING_SIZE];
   char datetime[BUILDDATE_STRING_SIZE];
-  char reserved[4];
+  char reserved1[4];
 } structIdVersion_t;
 
 // Main memory structure:
@@ -50,7 +50,8 @@ typedef struct __attribute__ ((packed)) {
   char facility[16];
   char project[16];
   char hardwareRev[4];
-  char reserved[12];
+  char reserved1[12];
+  char reserved2[16];
   structIdVersion_t version[MAX_VERSIONS];
 } structId_t;
 
@@ -58,9 +59,10 @@ typedef struct __attribute__ ((packed)) {
 //*******************************************************************************
 // Functions
 //*******************************************************************************
-void set_version_hw(const uint64_t base_addr, char* facility, char* project, char* hardwareRev);
-void set_version_id(const uint64_t base_addr, enumIdIndex_t idx, char* descriptor, char* version);
-void set_version_datetime(const uint64_t base_addr, enumIdIndex_t idx, char* date, char* time);
+void set_version_id(const uint64_t base_addr, enumIdIndex_t idx, const char* descriptor, const char* version);
+void set_version_datetime(const uint64_t base_addr, enumIdIndex_t idx, const char * date, const char * time);
+void set_version_hwrev(const uint64_t base_addr, const char* hardwareRev);
+void set_version_project(const uint64_t base_addr, const char* facility, const char* project);
 volatile structIdVersion_t* get_version_id(const uint64_t base_addr, enumIdIndex_t idx);
 volatile structId_t* get_version_all(const uint64_t base_addr);
 

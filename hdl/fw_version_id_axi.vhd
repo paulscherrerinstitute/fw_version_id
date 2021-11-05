@@ -268,19 +268,24 @@ begin
     reg_rdata(10) <= (others=>'0'); -- reserved
     reg_rdata(11) <= (others=>'0'); -- reserved
 
-    -- 0x30 ID0 - Descriptor PL
+    reg_rdata(12) <= (others=>'0'); -- reserved
+    reg_rdata(13) <= (others=>'0'); -- reserved
+    reg_rdata(14) <= (others=>'0'); -- reserved
+    reg_rdata(15) <= (others=>'0'); -- reserved
+
+    -- 0x40 ID0 - Descriptor PL
     gen_reg_descr: for i in 0 to 1 generate 
-    reg_rdata(i+12) <= pl_descriptor(i*32 +32-1 downto i*32);
+    reg_rdata(i+16) <= pl_descriptor(i*32 +32-1 downto i*32);
     end generate;
 
-    -- 0x38 ID0 - Git Repo Version
+    -- 0x48 ID0 - Git Repo Version
     gen_reg_gitrev: for i in 0 to 7 generate 
-      reg_rdata(i+14) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
+      reg_rdata(i+18) <= param_fw_git_version_i(i*32 +32-1 downto i*32);
     end generate;
 
-    -- 0x58 ID0 - Build Date/time:
+    -- 0x68 ID0 - Build Date/time:
     gen_reg_datetime: for i in 0 to 4 generate 
-      reg_rdata(i+22) <= param_fw_build_datetime_i(i*32 +32-1 downto i*32);
+      reg_rdata(i+26) <= param_fw_build_datetime_i(i*32 +32-1 downto i*32);
     end generate;
 
     --reg_rdata(16) <= param_fw_build_date_i;
