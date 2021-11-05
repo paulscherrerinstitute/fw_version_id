@@ -97,7 +97,7 @@ To automatically set the Version and Build-Date generics on every build, a tcl s
 
 1. Copy Makefiles `/templates/makefile.defs` and `makefile.targets` to SDK Project base.
 2. Add Defined Symbol to SDK Project: `VERSION_GIT_REPO=\"$(VERSION_GIT_REPO)\"`:  *Properties > C/C++ Build > Symbols*
-3. Adapt `makefile.targets`: Select object (e.g. main.o) which includes driver, to force compilation on a build run. The source file where **set_version_id()** is called.
+3. Adapt `makefile.targets`: Select object (e.g. main.o) which includes driver, to force compilation on a build run. The source file where **set_version_datetime()** is called.
 4. Call driver functions to write Git Repo Version and Build Date/Time into `fw_version_id` IP. 
    Example: [main.c](templates/main.c)
 
