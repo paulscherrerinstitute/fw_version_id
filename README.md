@@ -73,6 +73,17 @@ See [Changelog](Changelog.md)
 
 ![VivadoIP Generics](doc/vivadoip_generics.png)
 
+1. Instantiate VivadoIP in Block Design and pass the signals **param_fw_git_version_i** and **param_fw_build_datetime_i** to the top level vhdl file.
+2. connect the two signal to the enerics:
+ 
+ ```
+ entity top is
+  generic (
+    G_FW_GIT_VERSION      : std_logic_vector(255 downto 0) := (others=>'1');
+    G_FW_BUILD_DATE_TIME  : std_logic_vector(159 downto 0) := (others=>'1')
+ );
+ ```
+
 To automatically integrate the Build Date/Time and Git Repo Version, a tcl script must be added to the Build process before synthesis:
 
 1. Add Pre-Synthesis tcl script in: *Vivado > Project Settings > Synthesis > tcl.pre*
