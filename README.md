@@ -59,8 +59,8 @@ See [Changelog](Changelog.md)
 
    *) Reserved for PL and automatically set by pre-tcl script in registers.
 
-* Register: 0x000...06C
-* BRAM: 0x070..16C
+* Register: 0x000...07C
+* BRAM: 0x080..17C
 
 
 # Usage
@@ -84,36 +84,20 @@ To automatically integrate the Build Date/Time and Git Repo Version, a tcl scrip
 
 ![VivadoIP Generics](doc/sdk_software.png)
 
-1. Copy Makefiles `/templates/makefile.defs/.targets` to SDK Project base.
+1. Copy Makefiles `/templates/makefile.defs` and `makefile.targets` to SDK Project base.
 2. Add Defined Symbol to SDK Project: `VERSION_GIT_REPO=\"$(VERSION_GIT_REPO)\"`:  *Properties > C/C++ Build > Symbols*
-3. Adapt `makefile.targets`: Select object (e.g. main.o) which includes driver, to force compilation on a build run.
+3. Adapt `makefile.targets`: Select object (e.g. main.o) which includes driver, to force compilation on a build run. The source file where **set_version_id()** is called.
 4. Call driver functions to write Git Repo Version and Build Date/Time into `fw_version_id` IP. 
    Example: [main.c](templates/main.c)
 
-**Explanation:**  
+**Explanations:**  
 * The Makefiles are automatically included in the SDK managed Makefile process. 
 * `Makefile.defs` defines Makro with Git Repo Version (Git Describe Call)
 * `Makefile.targets` is used to force a rebuild of an object on every build. Otherwise the Version/Build Date might not be updated on every compile.
-* Following Macros are available: `VERSION_GIT_REPO`, `SW_BUILD_DATE` and `SW_BUILD_TIME`.
-* Using Driver functions `set_version_git()` and `set_version_build()` to write Version Info into BRAM of `fw_version_id` IP in FPGA. Example [main.c](templates/main.c).
+* Following Macros are available for the current Repo Version and build date/time:`VERSION_GIT_REPO`, `__DATE__` and `__TIME__`.
+* Using Driver functions `set_version_id()` and `set_version_datetime()` to write Version Info into BRAM of `fw_version_id` IP in FPGA. Example [main.c](templates/main.c).
 
 ## Epics
 
-* Example template: [version.template](templates/version.template)
-
-**Output records to use in panels:**  
-
-| Record                                     | Description           | Example          |
-| ------                                     | ----                  | --------         |
-| `$(DEV):$(SYS)-FW-FACILITY`                | FW Facility           | SwissFEL         |
-| `$(DEV):$(SYS)-FW-PROJECT`                 | FW Project            | DBPM3-AthosBPM   |
-| `$(DEV):$(SYS)-FW-VERSION`                 | FW Git Repo Version   | 0.3.2-13-gab3451 |
-| `$(DEV):$(SYS)-FW-BUILD-DATETIME-S.SVAL`   | FW Build Date/Time    | 2021.02.17 13:40 |
-| =====                                      | ====                  | ====             |
-| `$(DEV):$(SYS)-RPU0-VERSION`               | SW0 Git Repo Version  | 0.3.2-13-gab3451 |
-| `$(DEV):$(SYS)-RPU0-BUILD-DATETIME-S.SVAL` | SW0 Build Date/Time   | 2021.02.17 13:40 |
-| =====                                      | ====                  | ====             |
-| `$(DEV):$(SYS)-RPU1-VERSION`               | SW1 Git Repo Version  | 0.3.2-13-gab3451 |
-| `$(DEV):$(SYS)-RPU1-BUILD-DATETIME-S.SVAL` | SW1 Build Date/Time   | 2021.02.17 13:40 |
-
+* See EPICS Module:  [fw_version_id](https://git.psi.ch/epics_ioc_modules/fw_version_id)
 
