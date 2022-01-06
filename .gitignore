@@ -1,5 +1,6 @@
 #Packaging artifacts
 VivadoIP/scripts/package_prj
+VivadoIP/scripts/.Xil
 VivadoIP/xgui/*_wrp_*.tcl
 VivadoIP/xgui/mem_test_wrapper_v*.tcl
 

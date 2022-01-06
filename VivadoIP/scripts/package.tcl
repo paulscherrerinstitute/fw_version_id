@@ -61,9 +61,7 @@ gui_add_parameter
 gui_create_parameter "C_REV_PINS" "External Rev Pins"
 gui_add_parameter
 
-gui_create_parameter "C_FREQ_HZ" "Clock frquency in Hz"
-gui_add_parameter
-
+add_port_enablement_condition "rev_pins_i" "\$C_REV_PINS" 
 
 ###############################################################
 # Package Core

@@ -6,18 +6,8 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_ID_FACILITY" -parent ${Configuration}
   ipgui::add_param $IPINST -name "C_ID_PROJECT" -parent ${Configuration}
   ipgui::add_param $IPINST -name "C_REV_PINS" -parent ${Configuration}
-  ipgui::add_param $IPINST -name "C_FREQ_HZ" -parent ${Configuration}
 
 
-}
-
-proc update_PARAM_VALUE.C_FREQ_HZ { PARAM_VALUE.C_FREQ_HZ } {
-	# Procedure called to update C_FREQ_HZ when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.C_FREQ_HZ { PARAM_VALUE.C_FREQ_HZ } {
-	# Procedure called to validate C_FREQ_HZ
-	return true
 }
 
 proc update_PARAM_VALUE.C_ID_FACILITY { PARAM_VALUE.C_ID_FACILITY } {
@@ -65,11 +55,6 @@ proc validate_PARAM_VALUE.C_S_AXI_ADDR_WIDTH { PARAM_VALUE.C_S_AXI_ADDR_WIDTH } 
 	return true
 }
 
-
-proc update_MODELPARAM_VALUE.C_FREQ_HZ { MODELPARAM_VALUE.C_FREQ_HZ PARAM_VALUE.C_FREQ_HZ } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.C_FREQ_HZ}] ${MODELPARAM_VALUE.C_FREQ_HZ}
-}
 
 proc update_MODELPARAM_VALUE.C_ID_FACILITY { MODELPARAM_VALUE.C_ID_FACILITY PARAM_VALUE.C_ID_FACILITY } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value

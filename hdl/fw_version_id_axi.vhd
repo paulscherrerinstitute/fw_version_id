@@ -24,7 +24,6 @@ library work;
 entity fw_version_id_axi is
   generic
   (
-    C_FREQ_HZ                : positive := 125_000_000;             -- clk frequency in Hz
     C_ID_FACILITY            : string  := "FACILITY";
     C_ID_PROJECT             : string  := "PROJECT";
     C_REV_PINS               : boolean  := FALSE;
@@ -46,7 +45,7 @@ entity fw_version_id_axi is
     -----------------------------------------------------------------------------
     -- External HW Rev Pins
     -----------------------------------------------------------------------------
-    rev_pins_i    : in std_logic_vector(31 downto 0);
+    rev_pins_i    : in std_logic_vector(31 downto 0) := (others=>'0');
 
     -----------------------------------------------------------------------------
     -- Axi Slave Bus Interface
