@@ -1,3 +1,7 @@
+
+# Next release 
+* Adapted Makefile to be compatible for Vivado SDK and Vitis
+
 # 0.2.0
 * Removed unused generic
 * Conditional display of Port rev_pins
