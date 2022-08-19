@@ -1,5 +1,14 @@
 # General Information
 
+Automatic generation of version number and build time for Software/Firmware, based on Git Repository status.
+The version format based on `git describe`:  
+
+![Git Describe](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/-/raw/master/imgs/git_describe.png)
+
+Example Panel:  
+
+![Panel Example](doc/panel_example.png)
+
 ## Maintainer
 Jonas Purtschert [jonas.purtschert@psi.ch]
 
@@ -8,9 +17,6 @@ Jonas Purtschert [jonas.purtschert@psi.ch]
 
 ## License
 This library is published under [PSI HDL Library License](License.txt), which is [LGPL](LGPL2_1.txt) plus some additional exceptions to clarify the LGPL terms in the context of firmware development.
-
-## Changelog
-See [Changelog](Changelog.md)
 
 ## Dependencies
 
