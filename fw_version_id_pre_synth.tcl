@@ -1,7 +1,9 @@
 # ----------------------------------------------------
 # Pre Synthesis Tcl Script
 #
-#  Set Git Version and Build Date in fw_version_id IP
+# Set Git Version and Build Date in fw_version_id IP
+#
+# https://git.psi.ch/GFA/Libraries/Firmware/VHDL/fw_version_id
 # ----------------------------------------------------
 
 # change byte order of string within 32 bit words:
@@ -27,7 +29,6 @@ proc set_top_generics {} {
     set current_generics ""
 
     set current_generics [get_property generic [current_fileset]]
-    puts "current generics:  $current_generics"
 
     puts " version_id Date/Time:  $datetime_str"
     set datetime_hex [string_to_hex $datetime_str]
@@ -38,12 +39,10 @@ proc set_top_generics {} {
     set git_hex [string_to_hex $git_version]
     #set git_hex [string_to_hex ABCDEF]
 
-    puts " version_id Git:  $git_hex"
-
     set_property generic "G_FW_BUILD_DATE_TIME=160'h$datetime_hex G_FW_GIT_VERSION=256'h$git_hex" [current_fileset]
 
     set current_generics [get_property generic [current_fileset]]
-    puts "current generics: $current_generics"
+    puts "top level generics: $current_generics"
 
     cd $curr_dir
   }
