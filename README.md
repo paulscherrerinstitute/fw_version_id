@@ -118,3 +118,17 @@ To automatically set the Version and Build-Date generics on every build, a tcl s
 
 * See EPICS Module:  [fw_version_id](https://git.psi.ch/epics_ioc_modules/fw_version_id)
 
+## Debugging
+
+Check the logfile `<project>.runs/synth_1/runme.log` in the first 30 lines if the script has been called:
+
+```
+  ...
+  source /psi/GFA/DI/SLS/BPM_BUTTON_DBPM3/Dbpm3_But0G5/Library/Firmware/VHDL/fw_version_id/fw_version_id_pre_synth.tcl
+  fw_version_id_pre_synth.tcl script
+  version_id Date/Time:  2022-08-26 09:35:55
+  git version: 3.0.0-3-g5b4a15-dirty
+  top level generics: G_FW_BUILD_DATE_TIME=160'h35353a35333a39302036322d38302d32323032 G_FW_GIT_VERSION=256'h79747269642d353161346235672d332d302e302e33
+  ...
+```
+ 
