@@ -1,4 +1,4 @@
 build-job:
     stage: build
     script:
-        -echo "Test CI"
+        - echo "Test CI"
