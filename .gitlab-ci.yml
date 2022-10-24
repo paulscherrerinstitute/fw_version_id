@@ -3,6 +3,7 @@
 IP-Packager:
     stage: build
     script:
+        - git force-clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.psi.ch/GFA/Libraries/Firmware/TCL/PsiIpPackage ../../../Firmware/TCL/PsiIpPackage --depth=1 || true
         - source /tools/Xilinx/Vivado/2019.2/settings64.sh
         - cd VivadoIP/scripts
         - vivado -mode batch -source package.tcl
