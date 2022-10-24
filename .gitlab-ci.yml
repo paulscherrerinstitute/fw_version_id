@@ -5,4 +5,4 @@ IP-Packager:
     script:
         - source /tools/Xilinx/Vivado/2019.2/settings64.sh
         - cd VivadoIP/scripts
-        - vivado -mode batch -source project.tcl
+        - vivado -mode batch -source package.tcl
