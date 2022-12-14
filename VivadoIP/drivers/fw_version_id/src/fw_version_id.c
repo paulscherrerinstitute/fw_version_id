@@ -70,7 +70,6 @@ void set_version_datetime(const uint64_t base_addr, enumIdIndex_t idx, const cha
   ver->datetime[17] = time[6];
   ver->datetime[18] = time[7];
   ver->datetime[19] = 0;
-  ver->datetime[20] = 0;
 }
 
 void set_version_hwrev(const uint64_t base_addr, const char* hardwareRev) {
