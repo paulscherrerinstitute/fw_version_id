@@ -3,7 +3,7 @@
 Automatic generation of version number and build time for Software/Firmware, based on Git Repository status.
 The version format based on `git describe`:  
 
-![Git Describe](https://git.psi.ch/GFA/Documentation/HowToWorkWithGit/-/raw/master/imgs/git_describe.png)
+![Git Describe](doc/git_describe.png)
 
 Example Panel:  
 
@@ -120,7 +120,7 @@ To automatically set the Version and Build-Date generics on every build, a tcl s
 
 ## Debugging
 
-Check the logfile `<project>.runs/synth_1/runme.log` in the first 30 lines if the script has been called:
+Check the logfile `<project>.runs/synth_1/runme.log`. The first 30 lines should show the called script:
 
 ```
   ...
