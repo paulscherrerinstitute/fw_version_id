@@ -1,4 +1,3 @@
-DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -6,34 +5,24 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
-CC_FLAGS = $(COMPILER_FLAGS)
-ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
+RELEASEDIR=../../../lib
+INCLUDEDIR=../../../include
+INCLUDES=-I./. -I${INCLUDEDIR}
 
-RELEASEDIR=../../../lib/
-INCLUDEDIR=../../../include/
-INCLUDES=-I./. -I$(INCLUDEDIR)
+INCLUDEFILES=*.h
+LIBSOURCES=*.c
+OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
+ASSEMBLY_OBJECTS = $(addsuffix .o, $(basename $(wildcard *.S)))
 
-SRCFILES:=$(wildcard *.c)
+libs:
+	echo "Compiling fw_version_id..."
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
+	make clean
 
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
-
-libs: $(OBJECTS)
-
-DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
-
-include $(wildcard $(DEPFILES))
-
-include $(wildcard ../../../../dep.mk)
-
-$(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
-
-.PHONY: include
-include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
-
-$(INCLUDEDIR)%.h: %.h
-	$(CP) $< $@
+include:
+	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OBJECTS}
-	rm -rf $(DEPFILES)
+	-@rm -rf ${OBJECTS} ${ASSEMBLY_OBJECTS}
+

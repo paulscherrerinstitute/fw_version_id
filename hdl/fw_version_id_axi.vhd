@@ -161,11 +161,11 @@ begin
    generic map
    (
       -- Users parameters
-      NumReg_g                    => USER_SLV_NUM_REG,
-      UseMem_g                    => true,
+      num_reg_g                    => USER_SLV_NUM_REG,
+      use_mem_g                    => true,
       -- Parameters of Axi Slave Bus Interface
-      AxiIdWidth_g                => C_S00_AXI_ID_WIDTH,
-      AxiAddrWidth_g              => C_S_AXI_ADDR_WIDTH
+      axi_id_width_g                => C_S00_AXI_ID_WIDTH,
+      axi_addr_width_g              => C_S_AXI_ADDR_WIDTH
    )
    port map
    (
@@ -298,16 +298,16 @@ begin
 
    bram_inst: entity work.psi_common_sp_ram_be
       generic map (
-         Depth_g        => RAM_SIZE_DWORD,
-         Width_g        => 32
+         depth_g        => RAM_SIZE_DWORD,
+         width_g        => 32
       )
       port map (
-         Clk           => s00_axi_aclk,
-         Addr          => bram_addr,
-         Wr            => mem_wr_any,
-         Be            => mem_wr,
-         Din           => mem_wdata,
-         Dout          => mem_rdata
+         clk_i           => s00_axi_aclk,
+         addr_i          => bram_addr,
+         wr_i            => mem_wr_any,
+         be_i            => mem_wr,
+         dat_i           => mem_wdata,
+         dat_o          => mem_rdata
       );
 
 end rtl;
