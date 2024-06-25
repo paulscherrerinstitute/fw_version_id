@@ -1,9 +1,22 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_FORCE_HTTPS: "true"
+  GIT_STRATEGY: clone
+  GIT_SUBMODULE_DEPTH: 1
 
+stages:
+  - build
+
+before_script:
+  - git config credential.https://git.psi.ch.password ${CI_JOB_TOKEN}
+  - source build_env.sh
 
 IP-Packager:
-    stage: build
-    script:
-        - git force-clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.psi.ch/GFA/Libraries/Firmware/TCL/PsiIpPackage ../../../Firmware/TCL/PsiIpPackage --depth=1 || true
-        - source /tools/Xilinx/Vivado/2019.2/settings64.sh
-        - cd VivadoIP/scripts
-        - vivado -mode batch -source package.tcl
+  stage: build
+  tags:
+    - dsp
+  script:
+    - git force-clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.psi.ch/GFA/Libraries/Firmware/TCL/PsiIpPackage ../../../Firmware/TCL/PsiIpPackage --depth=1 || true
+    - tool xilinx_2022.1
+    - cd VivadoIP/scripts
+    - vivado -mode batch -source package.tcl
